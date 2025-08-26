@@ -1,0 +1,54 @@
+Create project environment by using necessary commands as like in day 01  instructions.
+
+1. Step into project folder start new app by using following command.
+
+     python3 manage.py startapp demoapp
+
+2. Import HttpResponse from django and Create a function in views.py which is present inside demoapp folder
+
+     from django.shortcuts import render
+     from django.http import HttpResponse
+
+     def home(request):
+         return HttpResponse("Welcome to little lemon restaurant")
+
+4. Create urls.py inside demoapp folder:
+     from django.urls import path
+     from . import views
+
+      urlpatterns = [
+           path('', views.home),
+      ]
+
+5. Import include and add urlpatterns in urls.py which is present inside demoproject folder
+
+
+        from django.contrib import admin
+        from django.urls import path, include
+
+        urlpatterns = [
+            path('admin/', admin.site.urls),
+            path('', include('demoapp.urls')),
+        ]
+
+6. Try to Map URLs with param
+   
+    Create url in urls.py inside demoapp folder
+     
+         path('drink/<str:drink_name>', views.drink, name="drink_name"),
+    
+    Add view for this URL nside views.py present inside demo app folder.
+
+            def drink(request, drink_name):
+            drinks={"mocha":"type of coffee", 
+                    "tea":"type of beverage",
+                    "lemonade":"type of refreshment"}
+            choice_of_drink = drinks[drink_name]   
+            returntext =  f"<h2> {drink_name} </h2>" + choice_of_drink 
+            return HttpResponse(returntext)
+
+
+
+
+
+        
